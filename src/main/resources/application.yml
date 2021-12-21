@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: issue-tracker
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    initialization-mode: always
+    continue-on-error: true
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:issuetrackerdb
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true

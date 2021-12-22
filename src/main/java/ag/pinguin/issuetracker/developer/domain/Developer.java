@@ -1,13 +1,19 @@
-package ag.pinguin.issuetracker.developer;
+package ag.pinguin.issuetracker.developer.domain;
 
 import javax.persistence.*;
 
-@Entity@Table(name = "developers")
+/**
+ * Developer Jpa Entity
+ *
+ * @author Mehdi Chitforoosh
+ */
+@Entity
+@Table(name = "developers")
 public class Developer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -16,16 +22,15 @@ public class Developer {
 
     }
 
-    public Developer(long id, String name) {
-        this.id = id;
+    public Developer(String name) {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

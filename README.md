@@ -10,7 +10,7 @@
     * [Domain](#domain)
     * [Endpoint](#endpoint)
 * [Technologies](#technologies)
-* [Run Test](#how-to-test)
+* [Run Test](#run-test)
 * [Setup](#setup)
     * [Requirements](#requirements)
     * [Running with Docker Compose or Java](#running-with-docker-compose-or-java)

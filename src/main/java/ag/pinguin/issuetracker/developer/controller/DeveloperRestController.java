@@ -97,7 +97,6 @@ public class DeveloperRestController {
         BeanPropertyBindingResult results = new BeanPropertyBindingResult(developer, "developer");
         developerValidator.validate(developer, results);
         if (results.hasErrors()) {
-            System.out.println(results);
             throw new ValidationException();
         }
     }

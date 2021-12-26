@@ -14,7 +14,7 @@ public class IndexController {
     /**
      * Index endpoint to show the index page
      *
-     * @return view name
+     * @return index html page
      */
     @GetMapping({"/", "/developers/**", "/issues/**", "/planner"})
     public String index() {

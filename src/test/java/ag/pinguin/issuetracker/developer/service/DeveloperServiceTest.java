@@ -22,6 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 
+/**
+ * Developer Service Test
+ *
+ * @author Mehdi Chitforoosh
+ */
 @ExtendWith(MockitoExtension.class)
 public class DeveloperServiceTest {
 

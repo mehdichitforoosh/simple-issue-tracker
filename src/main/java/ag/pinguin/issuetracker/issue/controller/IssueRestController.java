@@ -153,7 +153,6 @@ public class IssueRestController {
         BeanPropertyBindingResult results = new BeanPropertyBindingResult(issue, "issue");
         issueValidator.validate(issue, results);
         if (results.hasErrors()) {
-            System.out.println(results);
             throw new ValidationException();
         }
     }

@@ -65,6 +65,7 @@ public class DeveloperRestControllerTest {
     @Test
     @DisplayName("Should return bad request with invalid input json.")
     public void shouldReturnBadRequestHttpStatusWithInvalidJson() throws Exception {
+
         // Arrange
         doAnswer(invocationOnMock -> {
             Errors errors = invocationOnMock.getArgument(1);

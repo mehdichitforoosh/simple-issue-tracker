@@ -13,10 +13,10 @@ import java.util.List;
 public class PageJsonObject<T> {
 
     @JsonProperty(value = "totalItems", required = true)
-    private Long totalItems;
+    private final Long totalItems;
 
     @JsonProperty(value = "items", required = true)
-    private List<T> items;
+    private final List<T> items;
 
     public PageJsonObject(Long totalItems, List<T> items) {
         this.totalItems = totalItems;

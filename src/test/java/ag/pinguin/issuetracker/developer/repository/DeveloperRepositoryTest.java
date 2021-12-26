@@ -16,6 +16,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Developer Repository Test
+ *
+ * @author Mehdi Chitforoosh
+ */
 @DataJpaTest(properties = {"test.reset.sql.template=ALTER TABLE %s ALTER COLUMN id RESTART WITH 1"})
 public class DeveloperRepositoryTest {
 

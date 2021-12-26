@@ -1,7 +1,12 @@
-package ag.pinguin.issuetracker.issue.controller.json.response;
+package ag.pinguin.issuetracker.issue.controller.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Issue Id Json Object
+ *
+ * @author Mehdi Chitforoosh
+ */
 public final class IssueIdJsonObject {
 
     @JsonProperty(value = "id")

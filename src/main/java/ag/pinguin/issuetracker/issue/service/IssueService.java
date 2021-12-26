@@ -1,16 +1,30 @@
 package ag.pinguin.issuetracker.issue.service;
 
-import ag.pinguin.issuetracker.issue.dto.BugDto;
-import ag.pinguin.issuetracker.issue.dto.StoryDto;
+import ag.pinguin.issuetracker.issue.domain.Bug;
+import ag.pinguin.issuetracker.issue.domain.Issue;
+import ag.pinguin.issuetracker.issue.domain.Story;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
+/**
+ * Issue Service
+ *
+ * @author Mehdi Chitforoosh
+ */
 public interface IssueService {
 
-    Long createStory(StoryDto storyDto);
+    Long createStory(Story story);
 
-    Long createBug(BugDto bugDto);
+    Long createBug(Bug bug);
 
-    void updateStory(StoryDto storyDto);
+    Long updateStory(Story story);
 
-    void updateBug(BugDto bugDto);
+    Long updateBug(Bug bug);
+
+    void delete(Long id);
+
+    Issue findById(Long id);
+
+    Page<Issue> findByTitle(String title, Pageable pageable);
 
 }

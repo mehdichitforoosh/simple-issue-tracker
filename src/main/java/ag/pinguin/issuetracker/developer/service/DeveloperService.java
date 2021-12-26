@@ -1,6 +1,8 @@
 package ag.pinguin.issuetracker.developer.service;
 
-import ag.pinguin.issuetracker.developer.dto.DeveloperDto;
+import ag.pinguin.issuetracker.developer.domain.Developer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Developer Service
@@ -9,10 +11,14 @@ import ag.pinguin.issuetracker.developer.dto.DeveloperDto;
  */
 public interface DeveloperService {
 
-    Long create(DeveloperDto developer);
+    Long create(Developer developer);
 
-    void updateBasic(DeveloperDto developer);
+    Long update(Developer developer);
 
     void delete(Long id);
+
+    Developer findById(Long id);
+
+    Page<Developer> findByName(String name, Pageable pageable);
 
 }

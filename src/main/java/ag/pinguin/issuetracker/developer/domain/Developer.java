@@ -12,33 +12,68 @@ import javax.persistence.*;
 public class Developer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    public Developer() {
+    @Version
+    private Long version;
 
+    // Default Constructor
+    public Developer() {
     }
 
-    public Developer(String name) {
+    private Developer(Long id, String name, Long version) {
+        this.id = id;
         this.name = name;
+        this.version = version;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Long getVersion() {
+        return version;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
+     * Developer Builder
+     */
+    public static class Builder {
+
+        private Long id;
+        private String name;
+        private Long version;
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setVersion(Long version) {
+            this.version = version;
+            return this;
+        }
+
+        public Developer build() {
+            return new Developer(this.id, this.name, this.version);
+        }
+
     }
 }

@@ -1,7 +1,12 @@
-package ag.pinguin.issuetracker.developer.controller.json.response;
+package ag.pinguin.issuetracker.developer.controller.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Developer Id Json Object
+ *
+ * @author Mehdi Chitforoosh
+ */
 public final class DeveloperIdJsonObject {
 
     @JsonProperty(value = "id")
@@ -14,4 +19,5 @@ public final class DeveloperIdJsonObject {
     public Long getId() {
         return id;
     }
+
 }

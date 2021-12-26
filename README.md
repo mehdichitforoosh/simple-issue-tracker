@@ -136,9 +136,17 @@ http://localhost:9000/
 or Rest APIs:
 
 ```
-POST http://localhost:9000/api/v1/developers
-PUT http://localhost:9000/api/v1/developers/{id}
+POST http://localhost:9000/api/v1/developers              { "name":"Mehdi Chitforoosh" }
+PUT http://localhost:9000/api/v1/developers/{id}          { "name":"Mehdi Chitforoosh", version: 0 }
 GET http://localhost:9000/api/v1/developers/{id}
-GET http://localhost:9000/api/v1/developers?startIndex={start},itemsPerPage={size},name={string}
+GET http://localhost:9000/api/v1/developers?startIndex={start}&itemsPerPage={size}&name={string}
 DELETE http://localhost:9000/api/v1/developers/{id}
+
+POST http://localhost:9000/api/v1/issues/stories          { "title":"Add a button", "description":"", "status":"NEW", "estimatedPoint": 8 }
+PUT http://localhost:9000/api/v1/issues/stories/{id}      { "title":"Add a button", "description":"", "status":"NEW", "estimatedPoint": 8, version: 0 }
+POST http://localhost:9000/api/v1/issues/bugs             { "title":"Add a button", "description":"", "status":"NEW", "priority": "MAJOR" }
+PUT http://localhost:9000/api/v1/issues/bugs/{id}         { "title":"Add a button", "description":"", "status":"NEW", "priority": "MAJOR", version: 0 }
+GET http://localhost:9000/api/v1/issues/{id}
+GET http://localhost:9000/api/v1/issues?startIndex={start}&itemsPerPage={size}&title={string}
+DELETE http://localhost:9000/api/v1/issues/{id}
 ```

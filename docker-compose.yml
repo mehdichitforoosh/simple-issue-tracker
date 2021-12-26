@@ -1,0 +1,9 @@
+services:
+  issue-tracker:
+    image: openjdk:11
+    volumes:
+      - ./:/app
+    command: bash -c "cd /app && java -jar issue-tracker-1.0.0.jar --server.port=9000"
+    ports:
+      - 9000:9000
+

@@ -1,6 +1,5 @@
 package ag.pinguin.issuetracker.issue.repository;
 
-import ag.pinguin.issuetracker.developer.domain.Developer;
 import ag.pinguin.issuetracker.developer.repository.DeveloperRepository;
 import ag.pinguin.issuetracker.issue.domain.Bug;
 import ag.pinguin.issuetracker.issue.domain.Issue;
@@ -15,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.sql.SQLException;
 import java.time.Clock;
@@ -24,6 +24,11 @@ import java.time.ZoneId;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Issue Repository Test
+ *
+ * @author Mehdi Chitforoosh
+ */
 @DataJpaTest(properties = {"test.reset.sql.template=ALTER TABLE %s ALTER COLUMN issue_id RESTART WITH 1"})
 public class IssueRepositoryTest {
 
@@ -46,6 +51,7 @@ public class IssueRepositoryTest {
     @Test
     @DisplayName("Should save an issue then find it by id.")
     void shouldSaveAnIssueThenFindById() {
+
         // Arrange
         var newStory = Story.builder()
                 .setTitle("Add a button")
@@ -70,6 +76,7 @@ public class IssueRepositoryTest {
     @Test
     @DisplayName("Should save an issue then find it by id.")
     void shouldReturnExceptionWhenFieldsAreNull() {
+
         // Arrange
         var newStory = Story.builder()
                 .setTitle("Add a button")
@@ -84,6 +91,7 @@ public class IssueRepositoryTest {
     @Test
     @DisplayName("Should update an issue and increment version then find it by id.")
     void shouldUpdateAnIssueAndIncrementVersionThenFindById() {
+
         // Arrange
         var newStory = Story.builder()
                 .setTitle("Add a button")
@@ -115,6 +123,7 @@ public class IssueRepositoryTest {
     @Test
     @DisplayName("Should delete an issue then find it by id.")
     void shouldDeleteAnIssueThenFindById() {
+
         // Arrange
         var newStory = Story.builder()
                 .setTitle("Add a button")
@@ -161,42 +170,40 @@ public class IssueRepositoryTest {
         assertEquals("Modify the function", page.getContent().get(1).getTitle());
     }
 
-//    @Test
-//    @DisplayName("Should add an assigned developer to an issue then find it by id.")
-//    void shouldAddAnAssignedDeveloperToAnIssueThenFindById() {
-//
-//        // Arrange
-//        var newStory = Story.builder()
-//                .setTitle("Add a button")
-//                .setStatus(Story.Status.NEW)
-//                .setEstimatedPoint(8)
-//                .setCreationDate(LocalDateTime.now(CLOCK))
-//                .build();
-//
-//        var newDeveloper1 = Developer.builder()
-//                .setName("Eric Schultz")
-//                .build();
-//        var newDeveloper2 = Developer.builder()
-//                .setName("Alex Schober")
-//                .build();
-//
-//        // Act
-//        issueRepository.save(newStory);
-//        developerRepository.save(newDeveloper1);
-//        developerRepository.save(newDeveloper2);
-//        var foundedIssueBefore = issueRepository.findById(1L);
-//        issueRepository.addAssignedDeveloper(1L, 2L);
-//        var foundedIssueAfter = issueRepository.findById(1L);
-//
-//        // Assert
-//        assertNotNull(foundedIssueBefore);
-//        assertNotNull(foundedIssueAfter);
-//        assertTrue(foundedIssueBefore.isPresent());
-//        assertTrue(foundedIssueAfter.isPresent());
-//        assertNull(foundedIssueBefore.get().getAssignedDeveloper());
-//        assertNotNull(foundedIssueAfter.get().getAssignedDeveloper());
-//        assertEquals(2L, foundedIssueAfter.get().getAssignedDeveloper().getId());
-//        assertEquals("Alex Schober", foundedIssueAfter.get().getAssignedDeveloper().getName());
-//    }
+    @Test
+    @Sql("/addAssignedDeveloper.sql")
+    @DisplayName("Should add an assigned developer to an issue then find it by id.")
+    void shouldAddAnAssignedDeveloperToAnIssueThenFindById() {
+
+        // Arrange And Act
+        issueRepository.addAssignedDeveloper(1L, 2L);
+        var foundedIssue = issueRepository.findById(1L);
+
+        // Assert
+        assertNotNull(foundedIssue);
+        assertTrue(foundedIssue.isPresent());
+        assertNotNull(foundedIssue.get().getAssignedDeveloper());
+        assertEquals(2L, foundedIssue.get().getAssignedDeveloper().getId());
+        assertEquals("Alex Schober", foundedIssue.get().getAssignedDeveloper().getName());
+    }
+
+    @Test
+    @Sql("/removeAssignedDeveloper.sql")
+    @DisplayName("Should remove an assigned developer from an issue then find it by id.")
+    void shouldRemoveAnAssignedDeveloperToAnIssueThenFindById() {
+
+        // Arrange And Act
+        issueRepository.removeAssignedDeveloper(2L);
+        var foundedIssue1 = issueRepository.findById(1L);
+        var foundedIssue2 = issueRepository.findById(2L);
+
+        // Assert
+        assertNotNull(foundedIssue1);
+        assertNotNull(foundedIssue2);
+        assertTrue(foundedIssue1.isPresent());
+        assertTrue(foundedIssue2.isPresent());
+        assertNull(foundedIssue1.get().getAssignedDeveloper());
+        assertNull(foundedIssue2.get().getAssignedDeveloper());
+    }
 
 }

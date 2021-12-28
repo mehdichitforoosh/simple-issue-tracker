@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -52,10 +52,11 @@ public class PlannerRestControllerTest {
         list.add(assignedIssues1);
         list.add(assignedIssues2);
 
-        doReturn(list).when(plannerService).getAssignedStoryIssues();
+        doReturn(list).when(plannerService).getAssignedStoryIssues(isA(Integer.class));
 
         // Act and Assert
         mockMvc.perform(get("/api/v1/planner")
+                .queryParam("maxPoint", "10")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0][0].id", equalTo(1)))
@@ -69,7 +70,20 @@ public class PlannerRestControllerTest {
                 .andExpect(jsonPath("$.[1][0].status", equalTo("NEW")))
                 .andReturn();
 
-        verify(plannerService).getAssignedStoryIssues();
+        verify(plannerService).getAssignedStoryIssues(isA(Integer.class));
     }
 
+    @Test
+    @DisplayName("Should return bad request http status when max point is invalid.")
+    void shouldReturnBadRequestHttpStatusWhenMaxPointIsInvalid() throws Exception {
+
+        // Act and Assert
+        mockMvc.perform(get("/api/v1/planner")
+                .queryParam("maxPoint", "8")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        verifyNoInteractions(plannerService);
+    }
 }

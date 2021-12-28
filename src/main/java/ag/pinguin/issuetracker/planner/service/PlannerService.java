@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface PlannerService {
 
-    List<List<AssignedStoryIssueDto>> getAssignedStoryIssues();
+    List<List<AssignedStoryIssueDto>> getAssignedStoryIssues(Integer maxPointPerDeveloper);
 
 }

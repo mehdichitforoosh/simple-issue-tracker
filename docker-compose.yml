@@ -3,7 +3,13 @@ services:
     image: openjdk:11
     volumes:
       - ./:/app
+      - data-volume:/data
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/data/issue-tracker-db
     command: bash -c "cd /app && java -jar issue-tracker-1.0.0.jar --server.port=9000"
     ports:
       - 9000:9000
 
+volumes:
+  data-volume:
+    name: data-volume

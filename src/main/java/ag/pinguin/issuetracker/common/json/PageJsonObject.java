@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Page Json Object
  *
- * @param <T>
+ * @param <T> Generic object
  * @author Mehdi Chitforoosh
  */
 public class PageJsonObject<T> {

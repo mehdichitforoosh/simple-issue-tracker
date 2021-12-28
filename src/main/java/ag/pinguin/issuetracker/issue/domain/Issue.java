@@ -74,4 +74,8 @@ public abstract class Issue {
     public Long getVersion() {
         return version;
     }
+
+    public enum Type {
+        STORY, BUG
+    }
 }

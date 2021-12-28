@@ -21,6 +21,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -204,6 +205,25 @@ public class IssueRepositoryTest {
         assertTrue(foundedIssue2.isPresent());
         assertNull(foundedIssue1.get().getAssignedDeveloper());
         assertNull(foundedIssue2.get().getAssignedDeveloper());
+    }
+
+    @Test
+    @Sql("/findIssuesByType.sql")
+    @DisplayName("Should return issues by type.")
+    void shouldReturnIssuesByType() {
+
+        // Arrange And Act
+        List<Issue> issues = issueRepository.findByType("STORY");
+
+        // Assert
+        assertNotNull(issues);
+        assertEquals(2, issues.size());
+        assertEquals("Add a button", issues.get(0).getTitle());
+        assertEquals(Story.Status.ESTIMATED, ((Story) issues.get(0)).getStatus());
+        assertEquals(9, ((Story) issues.get(0)).getEstimatedPoint());
+        assertEquals("Add a text", issues.get(1).getTitle());
+        assertEquals(Story.Status.NEW, ((Story) issues.get(1)).getStatus());
+        assertEquals(3, ((Story) issues.get(1)).getEstimatedPoint());
     }
 
 }

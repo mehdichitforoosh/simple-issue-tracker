@@ -49,7 +49,7 @@ public class IssueValidator implements Validator {
         if (status == null) {
             errors.rejectValue("status", "invalid");
         }
-        if (!(estimatePoint != null && estimatePoint >= 1 && estimatePoint <= 100)) {
+        if (!(estimatePoint != null && estimatePoint >= 1 && estimatePoint <= 10)) {
             errors.rejectValue("estimatedPoint", "invalid");
         }
     }

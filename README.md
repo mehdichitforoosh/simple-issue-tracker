@@ -1,4 +1,5 @@
 # Simple Issue Tracker
+
 ## Table of contents
 
 * [General Info](#general-info)
@@ -106,10 +107,26 @@ You can check the running containers:
 docker ps
 ```
 
+You can stop running containers:
+
+```
+docker-compose down -v
+```
+
 or Java:
+
+You can download a runnable jar file from `https://github.com/mehdichitforoosh/simple-issue-tracker/releases/tag/v1.0.0`.
 
 ```
 java -jar issue-tracker-1.0.0.jar --server.port=9000
+```
+
+You can use file-based storage by setting the `spring.datasource.url` environment variable to `jdbc:h2:file:path`, otherwise it uses an in-memory H2 datastore.
+
+`path` is a file path in your operating system.
+
+```
+java -jar issue-tracker-1.0.0.jar --server.port=9000 --spring.datasource.url=jdbc:h2:file:path
 ```
 
 ### Running with Maven
@@ -142,6 +159,7 @@ GET http://localhost:9000/api/v1/developers/{id}
 GET http://localhost:9000/api/v1/developers?startIndex={start}&itemsPerPage={size}&name={string}
 DELETE http://localhost:9000/api/v1/developers/{id}
 
+
 POST http://localhost:9000/api/v1/issues/stories          { "title":"Add a button", "description":"", "status":"NEW", "estimatedPoint": 8 }
 PUT http://localhost:9000/api/v1/issues/stories/{id}      { "title":"Add a button", "description":"", "status":"NEW", "estimatedPoint": 8, version: 0 }
 POST http://localhost:9000/api/v1/issues/bugs             { "title":"Add a button", "description":"", "status":"NEW", "priority": "MAJOR" }
@@ -149,4 +167,7 @@ PUT http://localhost:9000/api/v1/issues/bugs/{id}         { "title":"Add a butto
 GET http://localhost:9000/api/v1/issues/{id}
 GET http://localhost:9000/api/v1/issues?startIndex={start}&itemsPerPage={size}&title={string}
 DELETE http://localhost:9000/api/v1/issues/{id}
+
+
+GET http://localhost:9000/api/v1/planner?maxPoint={maxPoint}
 ```

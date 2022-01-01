@@ -97,6 +97,9 @@ You can find integration and unit tests in `src/test/java` folder.
 
 To run the application you can either use docker-compose:
 
+You can download the jar file from `https://github.com/mehdichitforoosh/simple-issue-tracker/releases/tag/v1.0.0` 
+and place it in the directory that `docker-compose.yml` is placed and then:
+
 ```
 docker-compose up -d
 ```
